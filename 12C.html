@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1">
+
+<title>
+    HP12C V3.2 Premium
+</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    background:#111;
+
+    font-family:
+        Segoe UI,
+        Arial,
+        sans-serif;
+
+    padding:20px;
+}
+
+.app-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:20px;
+
+    max-width:1400px;
+
+    margin:auto;
+}
+
+.calc,
+.panel{
+
+    background:
+        linear-gradient(
+            #d1b57b,
+            #9c8254
+        );
+
+    border-radius:24px;
+
+    padding:16px;
+
+    box-shadow:
+        0 20px 50px rgba(
+            0,0,0,.45
+        );
+
+    height:80vh;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.calc{
+    overflow:hidden;
+}
+
+.logo{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    flex-shrink:0;
+}
+
+.logo span{
+    color:#0057b8;
+}
+
+.lcd{
+
+    flex-shrink:0;
+
+    height:150px;
+
+    border-radius:12px;
+
+    padding:10px;
+
+    margin:10px 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #edf4db,
+            #b5c08a
+        );
+
+    border:
+        4px solid #676767;
+
+    box-shadow:
+
+        inset 0 7px 14px
+        rgba(0,0,0,.35),
+
+        inset 0 -2px 2px
+        rgba(255,255,255,.20);
+}
+.line{
+
+    text-align:right;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    height:25%;
+}
+
+.result{
+
+    font-size:30px;
+
+    font-weight:bold;
+}
+
+.cfg{
+
+    flex-shrink:0;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:8px;
+}
+
+.cfg input,
+.cfg select,
+.tools input{
+
+    padding:8px;
+
+    border:none;
+
+    border-radius:6px;
+
+    width:100%;
+}
+
+.keys{
+
+    flex:1;
+
+    min-height:0;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    grid-auto-rows:1fr;
+
+    gap:6px;
+
+    margin-top:10px;
+}
+
+@media(max-width:900px){
+
+    .hist::after{
+
+   
+
+.keys button{
+
+    height:auto;
+
+    min-height:0;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        transform .08s ease,
+        filter .15s ease;
+}
+
+.cfg select{
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            #f6f6f6,
+            #d8d8d8
+        );
+
+    box-shadow:
+
+        inset 0 1px 2px
+        rgba(0,0,0,.20),
+
+        0 2px 4px
+        rgba(0,0,0,.20);
+}
+
+.cfg input{
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            #ffffff,
+            #dddddd
+        );
+
+    box-shadow:
+
+        inset 0 1px 2px
+        rgba(0,0,0,.20),
+
+        0 2px 4px
+        rgba(0,0,0,.20);
+}
+
+.tools input{
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            #ffffff,
+            #dddddd
+        );
+
+    box-shadow:
+
+        inset 0 1px 2px
+        rgba(0,0,0,.20),
+
+        0 2px 4px
+        rgba(0,0,0,.20);
+}
+
+.hist{
+
+    border:4px solid #676767;
+
+    border-radius:12px;
+
+    box-shadow:
+
+        inset 0 7px 14px
+        rgba(0,0,0,.35),
+
+        inset 0 -2px 2px
+        rgba(255,255,255,.20);
+}
+
+.tool-btn{
+
+    border:none;
+
+    border-radius:14px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4a4a4a,
+            #181818
+        );
+
+    box-shadow:
+
+        0 3px 0 #080808,
+
+        0 6px 8px
+        rgba(0,0,0,.30);
+
+    cursor:pointer;
+
+    font-weight:700;
+}
+
+.black{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4a4a4a,
+            #181818
+        );
+
+    box-shadow:
+
+        0 3px 0 #080808,
+
+        0 6px 8px
+        rgba(0,0,0,.30);
+}
+
+.blue{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #1d7de4,
+            #004f9c
+        );
+
+    box-shadow:
+
+        0 3px 0 #003764,
+
+        0 6px 8px
+        rgba(0,0,0,.30);
+}
+
+.orange{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f0a04a,
+            #bf5c04
+        );
+
+    box-shadow:
+
+        0 3px 0 #8a4200,
+
+        0 6px 8px
+        rgba(0,0,0,.30);
+}
+
+.gray{
+
+    color:#111;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fafafa,
+            #d8d8d8
+        );
+
+    box-shadow:
+
+        0 3px 0 #9a9a9a,
+
+        0 6px 8px
+        rgba(0,0,0,.25);
+}
+
+.tools{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-bottom:8px;
+}
+
+.tools button{
+
+    padding:8px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+.hist{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #edf4db,
+            #b5c08a
+        );
+
+    border:
+        4px solid #676767;
+
+    box-shadow:
+
+        inset 0 7px 14px
+        rgba(0,0,0,.35),
+
+        inset 0 -2px 2px
+        rgba(255,255,255,.20);
+
+    font-family:
+        "Courier New",
+        monospace;
+}
+
+.item{
+
+    position:relative;
+
+    padding:
+        8px
+        40px
+        8px
+        8px;
+
+    border-bottom:
+        1px solid #999;
+
+    line-height:1.4;
+}
+
+.delete-item{
+
+    position:absolute;
+
+    top:6px;
+
+    right:6px;
+
+    min-width:42px;
+
+    height:20px;
+
+    padding:0 4px;
+
+    border:none;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    color:#243100;
+
+    text-shadow:
+        0 1px 0
+        rgba(
+            255,
+            255,
+            255,
+            .30
+        );
+
+    letter-spacing:1px;
+}
+
+.delete-item:hover{
+
+    color:#3c5200;
+}
+
+.delete-item:active{
+
+    color:#1e2800;
+}
+
+.delete-item:hover{
+    background:#e53935;
+}
+
+.stats{
+
+    margin-top:8px;
+
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+    .app-layout{
+
+        grid-template-columns:1fr;
+    }
+
+    .calc{
+
+        height:auto;
+    }
+
+    .panel{
+
+        height:220px;
+
+        min-height:220px;
+    }
+
+   
+.hist{
+
+        height:190px;
+
+        overflow-y:auto;
+
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div class="calc">
+
+        <div class="logo">
+            HP <span>12C</span>
+        </div>
+
+        <div class="lcd">
+
+            <div
+                id="l1"
+                class="line">
+
+                HONORARIOS CHILE
+
+            </div>
+
+            <div
+                id="l2"
+                class="line">
+
+                RET 15.25%
+
+            </div>
+
+            <div
+                id="l3"
+                class="line">
+            </div>
+
+            <div
+                id="l4"
+                class="line result">
+
+                0
+
+            </div>
+
+        </div>
+
+        <div class="cfg">
+
+            <select id="tipo">
+
+                <option value="bruto">
+                    Bruto → Líquido
+                </option>
+
+                <option value="liquido">
+                    Líquido → Bruto
+                </option>
+
+            </select>
+
+            <input
+                id="ret"
+                type="number"
+                step="0.01"
+                value="15.25">
+
+        </div>
+
+        <div
+            class="keys"
+            id="keys">
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="tools">
+
+          <button id="clearH" class="tool-btn">
+    Borrar
+</button>
+
+<button id="copyH" class="tool-btn">
+    Copiar
+</button>
+
+<button id="csv" class="tool-btn">
+    CSV
+</button>
+
+            <input
+                id="search"
+                placeholder="Buscar">
+
+        </div>
+
+        <div
+            id="hist"
+            class="hist">
+
+        </div>
+
+        <div
+            id="stats"
+            class="stats">
+
+            Total cálculos: 0
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let valor = "";
+let resultadoMostrado = false;
+
+const $ =
+    id =>
+        document.getElementById(id);
+
+function upd(){
+
+    $("l2").textContent =
+        "RET " +
+        Number(
+            $("ret").value
+        ).toFixed(2)
+        + "%";
+
+    $("l3").textContent =
+        valor
+        ? "MONTO " + valor
+        : "";
+
+    $("l4").textContent =
+        valor || "0";
+}
+
+function add(v){
+
+    if(resultadoMostrado){
+
+        valor = "";
+
+        resultadoMostrado = false;
+    }
+
+    if(
+        v === "." &&
+        valor.includes(".")
+    ){
+        return;
+    }
+
+    valor += v;
+
+    upd();
+}
+
+function clr(){
+
+    valor = "";
+
+    upd();
+}
+
+function bk(){
+
+    valor =
+        valor.slice(0,-1);
+
+    upd();
+}
+
+function chs(){
+
+    if(!valor) return;
+
+    valor =
+        String(
+            Number(valor) * -1
+        );
+
+    upd();
+}
+
+function fmt(n){
+
+    return Math.round(n)
+        .toLocaleString(
+            "es-CL"
+        );
+}
+
+function stats(){
+
+    $("stats").textContent =
+        "Total cálculos: " +
+        document.querySelectorAll(
+            ".item"
+        ).length;
+}
+
+function save(){
+
+    try{
+
+        localStorage.hp12 =
+            $("hist").innerHTML;
+
+    }catch(e){}
+
+    stats();
+}
+
+function calc(){
+
+    const monto =
+        Number(valor);
+
+    if(!(monto > 0))
+        return;
+
+    const tasa =
+        Number(
+            $("ret").value
+        ) / 100;
+
+    let bruto;
+    let liquido;
+
+    if(
+        $("tipo").value
+        === "bruto"
+    ){
+
+        bruto = monto;
+
+        liquido =
+            bruto *
+            (1 - tasa);
+
+        $("l1").textContent =
+            "BRUTO → LIQUIDO";
+
+    }else{
+
+        liquido = monto;
+
+        bruto =
+            liquido /
+            (1 - tasa);
+
+        $("l1").textContent =
+            "LIQUIDO → BRUTO";
+    }
+
+    $("l3").textContent =
+        "BRUTO " +
+        fmt(bruto);
+
+    $("l4").textContent =
+        "LIQ " +
+        fmt(liquido);
+
+    let div =
+        document.createElement(
+            "div"
+        );
+
+    div.className =
+        "item";
+
+const retMonto =
+    bruto - liquido;
+
+div.innerHTML = `
+<button class="delete-item">
+    CLX
+</button>
+
+    <div>
+        ${new Date()
+        .toLocaleString("es-CL")}
+    </div>
+
+    <div>
+        ${$("l1").textContent}
+    </div>
+
+    <div>
+        BR ${fmt(bruto)}
+    </div>
+
+    <div>
+        RET TASA ${
+            Number(
+                $("ret").value
+            ).toFixed(2)
+        }%
+    </div>
+
+    <div>
+        RET MONTO ${
+            fmt(retMonto)
+        }
+    </div>
+
+    <div>
+        LIQ ${fmt(liquido)}
+    </div>
+`;
+
+    $("hist")
+        .prepend(div);
+
+    save();
+resultadoMostrado = true;
+
+}
+
+const defs = [
+
+["CLX","orange",clr],
+["←","orange",bk],
+["CHS","blue",chs],
+["HON","blue",calc],
+
+["7","black"],
+["8","black"],
+["9","black"],
+["000","gray"],
+
+["4","black"],
+["5","black"],
+["6","black"],
+[".","gray"],
+
+["1","black"],
+["2","black"],
+["3","black"],
+["=","blue",calc],
+
+["0","black"],
+
+[
+"COPY",
+"blue",
+()=>navigator.clipboard.writeText(
+    $("l4").textContent
+)
+],
+
+[
+"PRINT",
+"blue",
+()=>window.print()
+],
+
+[
+"ENTER",
+"orange",
+calc
+]
+
+];
+
+defs.forEach(d=>{
+
+    const b =
+        document.createElement(
+            "button"
+        );
+
+    b.textContent =
+        d[0];
+
+    b.className =
+        d[1];
+
+    b.onclick =
+        d[2] ||
+        (()=>add(d[0]));
+
+    $("keys")
+        .appendChild(b);
+});
+
+$("hist")
+.addEventListener(
+    "click",
+    function(e){
+
+        if(
+            !e.target.classList.contains(
+                "delete-item"
+            )
+        ){
+            return;
+        }
+
+        e.target
+        .closest(".item")
+        .remove();
+
+        save();
+        stats();
+    }
+);
+
+upd();
+
+</script>
+
+</body>
+</html>
