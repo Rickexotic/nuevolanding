@@ -264,6 +264,45 @@ button:active{
     visibility:hidden;
 }
 
+/* Floating button */
+.fab{
+    position:fixed;
+    bottom:28px;
+    right:28px;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    overflow:hidden;
+    z-index:9999;
+
+    box-shadow:
+        0 4px 8px rgba(0,0,0,.40),
+        0 10px 24px rgba(0,0,0,.30);
+
+    transition:transform .15s ease, box-shadow .15s ease;
+}
+
+.fab img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.fab:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 6px 12px rgba(0,0,0,.45),
+        0 14px 32px rgba(0,0,0,.35);
+}
+
+.fab:active{
+    transform:scale(0.95) translateY(2px);
+}
+
 @media(max-width:600px){
 
     .display{
@@ -289,6 +328,13 @@ button:active{
     button{
         height:50px;
         font-size:16px;
+    }
+
+    .fab{
+        width:52px;
+        height:52px;
+        bottom:18px;
+        right:18px;
     }
 }
 
@@ -374,6 +420,11 @@ button:active{
     </div>
 
 </div>
+
+<!-- Floating Action Button -->
+<button class="fab" title="Designer">
+    <img src="Designer.png" alt="Designer">
+</button>
 
 <script>
 
