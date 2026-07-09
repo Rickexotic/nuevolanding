@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>HP 12C Honorarios Chile</title>
+
+<style>
+
+@import url("https://fonts.cdnfonts.com/css/digital-7-mono");
+
+:root{
+    --hp-body:#b8ae93;
+    --hp-screen:#b6c8ab;
+    --hp-screen-border:#6e7f64;
+    --hp-screen-text:#203a24;
+    --hp-screen-font:"Digital-7 Mono","Digital-7","Courier New",monospace;
+    --hp-key-font:"Futura","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+    --hp-black1:#23232d;
+    --hp-black2:#0f0f15;
+
+    --hp-gold1:#db9d17;
+    --hp-gold2:#be7f08;
+
+    --hp-blue1:#77d2e6;
+    --hp-blue2:#57b7cb;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:20px;
+    min-height:100vh;
+    background:#5d5d5d;
+    font-family:Segoe UI, Arial, sans-serif;
+    box-shadow:inset 0 0 45px rgba(0,0,0,.35);
+}
+
+.calculator{
+    max-width:700px;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+
+    background:linear-gradient(
+        180deg,
+        #c4baa2,
+        #b8ae93,
+        #a79c80
+    );
+
+    border:4px solid #83795f;
+    border-radius:18px;
+    padding:20px;
+
+    box-shadow:
+        inset 0 8px 16px rgba(255,255,255,.18),
+        inset 0 -14px 22px rgba(0,0,0,.18),
+        0 12px 0 rgba(0,0,0,.35),
+        0 26px 38px rgba(0,0,0,.32),
+        0 38px 70px rgba(0,0,0,.30);
+}
+
+.calculator::before{
+    content:"";
+    position:absolute;
+    top:8px;
+    left:12px;
+    right:12px;
+    height:30%;
+    border-radius:16px;
+    background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.26),
+        rgba(255,255,255,.14) 38%,
+        rgba(255,255,255,0)
+    );
+    pointer-events:none;
+    filter:blur(1.5px);
+    z-index:0;
+}
+
+.calculator::after{
+    content:"";
+    position:absolute;
+    left:7%;
+    right:7%;
+    bottom:-26px;
+    height:44px;
+    background:radial-gradient(
+        ellipse at center,
+        rgba(0,0,0,.35) 0%,
+        rgba(0,0,0,0) 72%
+    );
+    pointer-events:none;
+    z-index:-1;
+}
+
+.calculator > *{
+    position:relative;
+    z-index:1;
+}
+
+.title{
+    font-family:"Courier New", monospace;
+    font-size:36px;
+    font-weight:bold;
+    color:#222;
+    margin-bottom:15px;
+    letter-spacing:3px;
+}
+
+.display{
+    background:linear-gradient(
+        180deg,
+        #c9d9bc,
+        var(--hp-screen) 38%,
+        #a9bc9e
+    );
+    border:4px solid var(--hp-screen-border);
+    border-radius:10px;
+    padding:15px;
+    margin-bottom:15px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:16px;
+    align-items:start;
+
+    box-shadow:
+        inset 0 2px 10px rgba(255,255,255,.24),
+        inset 0 -8px 14px rgba(0,0,0,.12),
+        0 8px 18px rgba(0,0,0,.28);
+}
+
+.display div{
+    font-family:var(--hp-screen-font);
+    color:var(--hp-screen-text);
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+.screen-main,
+.screen-results{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.screen-results{
+    align-items:flex-end;
+}
+
+.screen-results div{
+    text-align:right;
+}
+
+.input{
+    padding:0;
+    text-align:right;
+    font-size:34px;
+    min-height:auto;
+    color:var(--hp-screen-text);
+    background:none;
+    border:none;
+    box-shadow:none;
+}
+
+#direction{
+    color:var(--hp-screen-text);
+}
+
+select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+
+    background:#24242d;
+    color:white;
+
+    border-radius:8px;
+    border:1px solid #555;
+
+    font-size:16px;
+}
+
+.keys{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+button{
+    height:58px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+    font-family:var(--hp-key-font);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 3px 0 rgba(0,0,0,.45),
+        0 9px 14px rgba(0,0,0,.28);
+}
+
+.equals{
+    grid-row:span 3;
+    height:auto;
+    writing-mode:vertical-rl;
+    text-orientation:upright;
+    letter-spacing:2px;
+    font-size:16px;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+button:active{
+    transform:translateY(2px);
+}
+
+.black{
+    background:linear-gradient(
+        var(--hp-black1),
+        var(--hp-black2)
+    );
+    color:white;
+}
+
+.gold{
+    background:linear-gradient(
+        var(--hp-gold1),
+        var(--hp-gold2)
+    );
+    color:black;
+}
+
+.blue{
+    background:linear-gradient(
+        var(--hp-blue1),
+        var(--hp-blue2)
+    );
+    color:black;
+}
+
+.footer{
+    text-align:center;
+    margin-top:15px;
+    letter-spacing:4px;
+    font-size:12px;
+    color:#222;
+    font-weight:bold;
+}
+
+.empty{
+    visibility:hidden;
+}
+
+/* Floating button */
+.fab{
+    position:fixed;
+    bottom:28px;
+    right:28px;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    overflow:hidden;
+    z-index:9999;
+
+    box-shadow:
+        0 4px 8px rgba(0,0,0,.40),
+        0 10px 24px rgba(0,0,0,.30);
+
+    transition:transform .15s ease, box-shadow .15s ease;
+}
+
+.fab-container{
+
+    position:fixed;
+
+    right:28px;
+
+    bottom:28px;
+
+    z-index:9999;
+}
+
+.fab-option{
+
+    position:absolute;
+
+    right:8px;
+
+    width:180px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:24px;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transform:
+        translateY(10px);
+
+    transition:.25s;
+
+    background:white;
+
+    color:#222;
+
+    font-weight:bold;
+
+    box-shadow:
+        0 6px 16px rgba(0,0,0,.25);
+}
+
+.fab-option.show{
+
+    opacity:1;
+
+    pointer-events:auto;
+
+    transform:
+        translateY(0);
+}
+
+#optHist{
+    bottom:170px;
+}
+
+#optHon{
+    bottom:120px;
+}
+
+#optRenta{
+    bottom:70px;
+}
+
+.fab img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.fab:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 6px 12px rgba(0,0,0,.45),
+        0 14px 32px rgba(0,0,0,.35);
+}
+
+.fab:active{
+    transform:scale(0.95) translateY(2px);
+}
+
+@media(max-width:600px){
+
+    .display{
+        grid-template-columns:1fr;
+    }
+
+    .screen-results{
+        align-items:stretch;
+    }
+
+    .screen-results div{
+        text-align:left;
+    }
+
+    .title{
+        font-size:28px;
+    }
+
+    .input{
+        font-size:24px;
+    }
+
+    button{
+        height:50px;
+        font-size:16px;
+    }
+
+    .fab{
+        width:52px;
+        height:52px;
+        bottom:18px;
+        right:18px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <div class="title">
+        HP 12C
+    </div>
+
+    <div class="display">
+
+        <div class="screen-main">
+
+            <div class="input" id="inputDisplay">
+                0,00
+            </div>
+
+            <div id="direction">
+                BRUTO → LÍQUIDO
+            </div>
+
+        </div>
+
+        <div class="screen-results">
+
+            <div id="bruto">
+                Bruto: 0,00
+            </div>
+
+            <div id="retencion">
+                Retención: 0,00
+            </div>
+
+            <div id="liquido">
+                Líquido: 0,00
+            </div>
+
+        </div>
+
+    </div>
+
+    <select id="pct">
+        <option value="14.5">2025 - 14,50%</option>
+        <option value="15.25" selected>2026 - 15,25%</option>
+        <option value="16">2027 - 16,00%</option>
+        <option value="17">2028+ - 17,00%</option>
+    </select>
+
+    <div class="keys">
+
+        <button class="gold" onclick="setMode('BRT')">BRT</button>
+        <button class="blue" onclick="setMode('LQD')">LQD</button>
+        <button class="black" onclick="clearInput()">CLR</button>
+        <button class="black" onclick="backspace()">←</button>
+
+        <button class="black" onclick="add('7')">7</button>
+        <button class="black" onclick="add('8')">8</button>
+        <button class="black" onclick="add('9')">9</button>
+        <button class="black equals" onclick="calculate()">ENTER</button>
+
+        <button class="black" onclick="add('4')">4</button>
+        <button class="black" onclick="add('5')">5</button>
+        <button class="black" onclick="add('6')">6</button>
+
+        <button class="black" onclick="add('1')">1</button>
+        <button class="black" onclick="add('2')">2</button>
+        <button class="black" onclick="add('3')">3</button>
+
+        <button class="black" onclick="add('0')">0</button>
+        <button class="empty"></button>
+        <button class="empty"></button>
+        <button class="empty"></button>
+
+    </div>
+
+    <div class="footer">
+        HEWLETT • PACKARD
+    </div>
+
+</div>
+
+<!-- Floating Action Button -->
+
+<div class="fab-container">
+
+    <button id="optHist" class="fab-option">
+        Histórico
+    </button>
+
+    <button id="optHon" class="fab-option">
+        Honorarios
+    </button>
+
+    <button id="optRenta" class="fab-option">
+        Impuesto
+    </button>
+
+    <button id="helpBtn" class="fab">
+
+        <img
+            src="Designer.png"
+            alt="Designer">
+
+    </button>
+
+</div>
+
+<script>
+
+let mode = "LQD";
+let buffer = "";
+let justCalculated = false;
+
+function resetResults() {
+    document.getElementById("bruto").textContent = "Bruto: 0,00";
+    document.getElementById("retencion").textContent = "Retención: 0,00";
+    document.getElementById("liquido").textContent = "Líquido: 0,00";
+}
+
+function refresh() {
+    const value = parseFloat(buffer);
+    document.getElementById("inputDisplay").textContent =
+        isNaN(value) ? "0,00" : money(value);
+}
+
+function setMode(newMode) {
+
+    mode = newMode;
+
+    document.getElementById("direction").textContent =
+        mode === "LQD"
+        ? "BRUTO → LÍQUIDO"
+        : "LÍQUIDO → BRUTO";
+}
+
+function add(value) {
+
+    if(justCalculated){
+        buffer = "";
+        resetResults();
+        justCalculated = false;
+    }
+
+    if(value === "." && buffer.includes(".")){
+        return;
+    }
+
+    buffer += value;
+    refresh();
+}
+
+function clearInput() {
+    buffer = "";
+    justCalculated = false;
+    resetResults();
+    refresh();
+}
+
+function backspace() {
+    justCalculated = false;
+    buffer = buffer.slice(0,-1);
+    refresh();
+}
+
+function money(value) {
+
+    return new Intl.NumberFormat(
+        "es-CL",
+        {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    ).format(value);
+}
+
+function percent(value) {
+
+    return new Intl.NumberFormat(
+        "es-CL",
+        {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    ).format(value);
+}
+
+function calculate() {
+
+    const value = parseFloat(buffer);
+
+    if(isNaN(value)){
+        return;
+    }
+
+    const pct =
+        parseFloat(document.getElementById("pct").value) / 100;
+
+    let bruto;
+    let retencion;
+    let liquido;
+
+    if(mode === "LQD"){
+
+        bruto = value;
+        retencion = bruto * pct;
+        liquido = bruto - retencion;
+
+    }else{
+
+        liquido = value;
+        bruto = liquido / (1 - pct);
+        retencion = bruto * pct;
+    }
+
+    document.getElementById("bruto").textContent =
+        "Bruto: " + money(bruto);
+
+    document.getElementById("retencion").textContent =
+        "Retención " +
+        percent(pct * 100) +
+        "%: " +
+        money(retencion);
+
+    document.getElementById("liquido").textContent =
+        "Líquido: " + money(liquido);
+
+    justCalculated = true;
+}
+
+function handleKeyboardInput(event) {
+
+    if(event.ctrlKey || event.altKey || event.metaKey){
+        return;
+    }
+
+    if(document.activeElement && document.activeElement.tagName === "SELECT"){
+        return;
+    }
+
+    const key = event.key;
+    const lowerKey = key.toLowerCase();
+
+    if(/^[0-9]$/.test(key)){
+        event.preventDefault();
+        add(key);
+        return;
+    }
+
+    if(key === "." || key === ","){
+        event.preventDefault();
+        add(".");
+        return;
+    }
+
+    if(key === "Enter" || key === "="){
+        event.preventDefault();
+        calculate();
+        return;
+    }
+
+    if(key === "Backspace"){
+        event.preventDefault();
+        backspace();
+        return;
+    }
+
+    if(key === "Delete" || key === "Escape"){
+        event.preventDefault();
+        clearInput();
+        return;
+    }
+
+    if(lowerKey === "b"){
+        event.preventDefault();
+        setMode("BRT");
+        return;
+    }
+
+    if(lowerKey === "l"){
+        event.preventDefault();
+        setMode("LQD");
+    }
+}
+
+document.addEventListener("keydown", handleKeyboardInput);
+
+refresh();
+
+console.log("HP12C cargada correctamente");
+
+const helpBtn =
+    document.getElementById(
+        "helpBtn"
+    );
+
+const options =
+    document.querySelectorAll(
+        ".fab-option"
+    );
+
+helpBtn.addEventListener(
+    "click",
+    () => {
+
+        options.forEach(
+            option =>
+            option.classList.toggle(
+                "show"
+            )
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
