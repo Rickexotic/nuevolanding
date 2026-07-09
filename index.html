@@ -43,6 +43,13 @@ body{
 
 .calculator{
     max-width:700px;
+
+min-height:calc(100vh - 40px);
+
+    display:flex;
+
+    flex-direction:column;
+   
     margin:auto;
     position:relative;
     overflow:hidden;
@@ -108,14 +115,21 @@ body{
 }
 
 .title{
-    font-family:"Courier New", monospace;
-    font-size:36px;
-    font-weight:bold;
-    color:#222;
-    margin-bottom:15px;
-    letter-spacing:3px;
-}
 
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#222;
+
+    margin-bottom:8px;
+
+    letter-spacing:2px;
+}
 .display{
     background:linear-gradient(
         180deg,
@@ -190,6 +204,7 @@ select{
 }
 
 .keys{
+    flex:1;
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:8px;
@@ -386,11 +401,16 @@ button:active{
     }
 
     .title{
-        font-size:28px;
+        font-size:22px;
+      
+margin-bottom:2px;
+
+    letter-spacing:1px;
+
     }
 
     .input{
-        font-size:24px;
+        font-size:22px;
     }
 
     button{
