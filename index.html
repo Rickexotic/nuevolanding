@@ -570,7 +570,7 @@ button:active{
         <div class="screen-main">
 
             <div class="input" id="inputDisplay">
-                0,00
+                0
             </div>
 
             <div id="direction">
@@ -582,15 +582,15 @@ button:active{
         <div class="screen-results">
 
             <div id="bruto">
-                Bruto: 0,00
+                Bruto: 0
             </div>
 
             <div id="retencion">
-                Retención: 0,00
+                Retención: 0
             </div>
 
             <div id="liquido">
-                Líquido: 0,00
+                Líquido: 0
             </div>
 
         </div>
@@ -672,9 +672,9 @@ let buffer = "";
 let justCalculated = false;
 
 function resetResults() {
-    document.getElementById("bruto").textContent = "Bruto: 0,00";
-    document.getElementById("retencion").textContent = "Retención: 0,00";
-    document.getElementById("liquido").textContent = "Líquido: 0,00";
+    document.getElementById("bruto").textContent = "Bruto: 0";
+    document.getElementById("retencion").textContent = "Retención: 0";
+    document.getElementById("liquido").textContent = "Líquido: 0";
 }
 
 function refresh() {
@@ -727,8 +727,8 @@ function money(value) {
     return new Intl.NumberFormat(
         "es-CL",
         {
-            minimumFractionDigits:2,
-            maximumFractionDigits:2
+            minimumFractionDigits:0,
+            maximumFractionDigits:0
         }
     ).format(value);
 }
