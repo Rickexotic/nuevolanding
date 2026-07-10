@@ -606,10 +606,10 @@ button:active{
 
     <div class="keys">
 
-        <button class="gold" onclick="setMode('BRT')">BRT</button>
-        <button class="blue" onclick="setMode('LQD')">LQD</button>
         <button class="black" onclick="clearInput()">CLR</button>
         <button class="black" onclick="backspace()">←</button>
+        <button class="empty"></button>
+        <button class="empty"></button>
 
         <button class="black" onclick="add('7')">7</button>
         <button class="black" onclick="add('8')">8</button>
@@ -773,13 +773,13 @@ function calculate() {
     }
 
     document.getElementById("bruto").textContent =
-        "Bruto: " + money(bruto);
+        "Bruto:  " + money(bruto);
 
     document.getElementById("retencion").textContent =
-        "Retención " +  money(retencion);
+        "Retención:  " +  money(retencion);
 
     document.getElementById("liquido").textContent =
-        "Líquido: " + money(liquido);
+        "Líquido:  " + money(liquido);
 
     justCalculated = true;
 }
